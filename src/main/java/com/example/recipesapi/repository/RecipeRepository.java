@@ -15,5 +15,4 @@ public class RecipeRepository {
     public Recipe getRecipe() {
         return this.recipe;
     }
-
 }
