@@ -5,6 +5,8 @@ import com.example.recipesapi.repository.RecipeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Map;
+
 @Service
 public class RecipeService {
 
@@ -15,12 +17,12 @@ public class RecipeService {
         this.recipeRepository = recipeRepository;
     }
 
-    public Recipe addNewRecipe(Recipe recipe) {
+    public Map<String, Integer> addNewRecipe(Recipe recipe) {
         return recipeRepository.save(recipe);
     }
 
-    public Recipe getRecipe() {
-        return recipeRepository.getRecipe();
+    public Recipe getRecipeById(Integer id) {
+        return recipeRepository.getRecipeById(id);
     }
 
 }
