@@ -9,7 +9,6 @@ import java.util.Map;
 
 @Repository
 public class RecipeRepository {
-    private Recipe recipe;
 
     private final Map<Integer, Recipe> recipes = new HashMap<>();
 
