@@ -15,9 +15,12 @@ import java.util.List;
 @Setter
 public class RecipeDto {
     private String name;
+
     private String description;
+
     @ElementCollection
     private List<String> ingredients = new ArrayList<>();
+
     @ElementCollection
     private List<String> directions = new ArrayList<>();
 }
