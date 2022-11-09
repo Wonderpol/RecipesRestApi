@@ -51,11 +51,9 @@ public class RecipeController {
     @DeleteMapping("{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     private void removeRecipe(@PathVariable Long id) {
-         recipeService.getRecipeById(id)
-                .map(recipe -> {
-                    recipeService.deleteRecipe(recipe.getId());
-                    return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-                })
+         Recipe recipe = recipeService.getRecipeById(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+
+        recipeService.deleteRecipe(recipe.getId());
     }
 }
