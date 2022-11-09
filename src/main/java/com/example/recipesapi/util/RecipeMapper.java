@@ -1,7 +1,7 @@
 package com.example.recipesapi.util;
 
-import com.example.recipesapi.domain.Recipe;
-import com.example.recipesapi.domain.dto.RecipeDto;
+import com.example.recipesapi.model.Recipe;
+import com.example.recipesapi.model.dto.RecipeDto;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

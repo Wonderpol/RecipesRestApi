@@ -1,7 +1,7 @@
 package com.example.recipesapi.controller;
 
-import com.example.recipesapi.domain.Recipe;
-import com.example.recipesapi.domain.dto.RecipeDto;
+import com.example.recipesapi.model.Recipe;
+import com.example.recipesapi.model.dto.RecipeDto;
 import com.example.recipesapi.service.RecipeService;
 import com.example.recipesapi.util.RecipeMapper;
 import org.modelmapper.ModelMapper;
