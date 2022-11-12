@@ -21,12 +21,9 @@ public class RecipeController {
 
     private final RecipeService recipeService;
 
-    private final RecipeMapper recipeMapper;
-
     @Autowired
-    public RecipeController(final RecipeService recipeService, final RecipeMapper recipeMapper, final ModelMapper modelMapper1) {
+    public RecipeController(final RecipeService recipeService) {
         this.recipeService = recipeService;
-        this.recipeMapper = recipeMapper;
     }
 
     @GetMapping
@@ -36,24 +33,18 @@ public class RecipeController {
 
     @PostMapping("/new")
     private ResponseEntity<Map<String, Long>> newRecipe(@RequestBody Recipe recipe) {
-        Recipe savedRecipe = recipeService.addRecipe(recipe);
-        return new ResponseEntity<>(Collections.singletonMap("id", savedRecipe.getId()), HttpStatus.OK);
+        return new ResponseEntity<>(recipeService.addRecipe(recipe), HttpStatus.OK);
     }
 
     @GetMapping("{id}")
     private ResponseEntity<RecipeDto> getRecipeById(@PathVariable Long id) {
-        return recipeService.getRecipeById(id)
-                .map(recipeMapper::convertToDto)
-                .map(recipe -> new ResponseEntity<>(recipe, HttpStatus.OK))
-                .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
+        final RecipeDto recipeDto = recipeService.getRecipeById(id);
+        return new ResponseEntity<>(recipeDto, HttpStatus.OK);
     }
 
     @DeleteMapping("{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     private void removeRecipe(@PathVariable Long id) {
-         Recipe recipe = recipeService.getRecipeById(id)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
-
-        recipeService.deleteRecipe(recipe.getId());
+        recipeService.deleteRecipe(id);
     }
 }
