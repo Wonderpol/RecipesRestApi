@@ -56,10 +56,7 @@ public class RecipeService {
     }
 
     public List<Recipe> getRecipeByName(String name) {
-        List<Recipe> recipe = recipeRepository.findRecipeByName(name.toLowerCase())
-                .orElseThrow(CustomNotFoundException::new);
-
-        return recipe;
+        return recipeRepository.findRecipeByName(name.toLowerCase());
     }
 
 }

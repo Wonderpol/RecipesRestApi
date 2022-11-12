@@ -12,6 +12,6 @@ import java.util.Optional;
 public interface RecipeRepository extends JpaRepository<Recipe, Long> {
 
     @Query("SELECT r FROM Recipe r WHERE lower(r.name) LIKE %:name%")
-    Optional<List<Recipe>> findRecipeByName(String name);
+    List<Recipe> findRecipeByName(String name);
 
 }
