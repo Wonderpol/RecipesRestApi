@@ -28,15 +28,21 @@ public class RecipeController {
         return new ResponseEntity<>(recipeService.getAllRecipes(), HttpStatus.OK);
     }
 
-    @PostMapping("/new")
-    private ResponseEntity<Map<String, Long>> newRecipe(@RequestBody Recipe recipe) {
-        return new ResponseEntity<>(recipeService.addRecipe(recipe), HttpStatus.OK);
-    }
-
     @GetMapping("{id}")
     private ResponseEntity<RecipeDto> getRecipeById(@PathVariable Long id) {
         final RecipeDto recipeDto = recipeService.getRecipeById(id);
         return new ResponseEntity<>(recipeDto, HttpStatus.OK);
+    }
+
+    @GetMapping("/search")
+    private ResponseEntity<List<Recipe>> getRecipeByName(@RequestParam String name) {
+        final List<Recipe> recipe = recipeService.getRecipeByName(name);
+        return new ResponseEntity<>(recipe, HttpStatus.OK);
+    }
+
+    @PostMapping("/new")
+    private ResponseEntity<Map<String, Long>> newRecipe(@RequestBody Recipe recipe) {
+        return new ResponseEntity<>(recipeService.addRecipe(recipe), HttpStatus.OK);
     }
 
     @DeleteMapping("{id}")

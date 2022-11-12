@@ -54,4 +54,12 @@ public class RecipeService {
         recipeRepository.deleteById(recipe.getId());
 
     }
+
+    public List<Recipe> getRecipeByName(String name) {
+        List<Recipe> recipe = recipeRepository.findRecipeByName(name.toLowerCase())
+                .orElseThrow(CustomNotFoundException::new);
+
+        return recipe;
+    }
+
 }
