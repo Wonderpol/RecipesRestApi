@@ -3,15 +3,12 @@ package com.example.recipesapi.controller;
 import com.example.recipesapi.model.Recipe;
 import com.example.recipesapi.model.dto.RecipeDto;
 import com.example.recipesapi.service.RecipeService;
-import com.example.recipesapi.util.RecipeMapper;
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.server.ResponseStatusException;
 
-import java.util.Collections;
+
 import java.util.List;
 import java.util.Map;
 
