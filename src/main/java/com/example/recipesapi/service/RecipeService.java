@@ -56,7 +56,7 @@ public class RecipeService {
     }
 
     public List<Recipe> getRecipeByName(String name) {
-        return recipeRepository.findRecipeByName(name.toLowerCase());
+        return recipeRepository.findByNameContaining(name);
     }
 
 }

@@ -3,7 +3,6 @@ package com.example.recipesapi.model;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.NonNull;
 import org.hibernate.Hibernate;
 
 import javax.persistence.*;
@@ -34,15 +33,9 @@ public class Recipe {
     @NotBlank
     private String description;
 
-    @NonNull
-    @NotNull
-//    @Size(min = 1)
     @ElementCollection
     private List<String> ingredients = new ArrayList<>();
 
-    @NonNull
-    @NotNull
-//    @Size(min = 1)
     @ElementCollection
     private List<String> directions = new ArrayList<>();
 
