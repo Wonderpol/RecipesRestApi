@@ -15,7 +15,6 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import java.util.List;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
-import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 
 @ExtendWith(MockitoExtension.class)
@@ -51,8 +50,7 @@ class RecipeServiceTest {
         Mockito.when(recipeRepository.save(recipe)).thenReturn(recipe);
         underTestRecipeService.addRecipe(recipe);
         //then
-        ArgumentCaptor<Recipe> recipeArgumentCaptor =
-                ArgumentCaptor.forClass(Recipe.class);
+        ArgumentCaptor<Recipe> recipeArgumentCaptor = ArgumentCaptor.forClass(Recipe.class);
 
         verify(recipeRepository).save(recipeArgumentCaptor.capture());
 
