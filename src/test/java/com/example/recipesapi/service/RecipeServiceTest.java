@@ -13,8 +13,10 @@ import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.List;
+import java.util.Optional;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.verify;
 
 @ExtendWith(MockitoExtension.class)
@@ -31,7 +33,7 @@ class RecipeServiceTest {
     }
 
     @Test
-    void can_get_all_recipes() {
+    void canGetAllRecipes() {
         //when
         underTestRecipeService.getAllRecipes();
         //then
@@ -39,7 +41,7 @@ class RecipeServiceTest {
     }
 
     @Test
-    void can_add_recipe() {
+    void canAddRecipe() {
         //given
         Recipe recipe = new Recipe(1L,
                 "Carroten soup",
@@ -47,7 +49,6 @@ class RecipeServiceTest {
                 List.of("Tomaten", "Peper", "sól"),
                 List.of("1. Put 1kg tomate to thermomix", "2. Add salt"));
         //when
-        Mockito.when(recipeRepository.save(recipe)).thenReturn(recipe);
         underTestRecipeService.addRecipe(recipe);
         //then
         ArgumentCaptor<Recipe> recipeArgumentCaptor = ArgumentCaptor.forClass(Recipe.class);
@@ -55,8 +56,28 @@ class RecipeServiceTest {
         verify(recipeRepository).save(recipeArgumentCaptor.capture());
 
         final Recipe capturedRecipe = recipeArgumentCaptor.getValue();
-
         assertThat(capturedRecipe).isEqualTo(recipe);
+    }
+
+    @Test
+    void canRemoveRecipe() {
+        //given
+        Recipe recipe = new Recipe(1L,
+                "Carroten soup",
+                "Delicious tomate soup",
+                List.of("Tomaten", "Peper", "sól"),
+                List.of("1. Put 1kg tomate to thermomix", "2. Add salt"));
+
+        given(recipeRepository.findById(recipe.getId())).willReturn(Optional.of(recipe));
+        //when
+        underTestRecipeService.deleteRecipe(recipe.getId());
+        //then
+
+        ArgumentCaptor<Long> recipeIdArgumentCaptor = ArgumentCaptor.forClass(Long.class);
+
+        verify(recipeRepository).deleteById(recipeIdArgumentCaptor.capture());
+        final Long capturedId = recipeIdArgumentCaptor.getValue();
+        assertThat(capturedId).isEqualTo(recipe.getId());
     }
 
 }

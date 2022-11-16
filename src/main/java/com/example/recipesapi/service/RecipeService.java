@@ -39,9 +39,8 @@ public class RecipeService {
                 });
     }
 
-    public Map<String, Long> addRecipe(Recipe recipe) {
-        final Recipe savedRecipe = recipeRepository.save(recipe);
-        return Collections.singletonMap("id", savedRecipe.getId());
+    public void addRecipe(Recipe recipe) {
+        recipeRepository.save(recipe);
     }
 
     public void deleteRecipe(Long id) {

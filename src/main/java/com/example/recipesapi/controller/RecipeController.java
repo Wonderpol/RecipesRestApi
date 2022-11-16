@@ -41,8 +41,8 @@ public class RecipeController {
     }
 
     @PostMapping("/new")
-    private ResponseEntity<Map<String, Long>> newRecipe(@RequestBody Recipe recipe) {
-        return new ResponseEntity<>(recipeService.addRecipe(recipe), HttpStatus.OK);
+    private void newRecipe(@RequestBody Recipe recipe) {
+        recipeService.addRecipe(recipe);
     }
 
     @DeleteMapping("{id}")
