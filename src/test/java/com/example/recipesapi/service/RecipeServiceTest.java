@@ -1,10 +1,13 @@
 package com.example.recipesapi.service;
 
 
+import com.example.recipesapi.exception.CustomNotFoundException;
 import com.example.recipesapi.model.Recipe;
+import com.example.recipesapi.model.dto.RecipeDto;
 import com.example.recipesapi.repository.RecipeRepository;
 import com.example.recipesapi.util.RecipeMapper;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
@@ -16,7 +19,11 @@ import java.util.List;
 import java.util.Optional;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.BDDMockito.given;
+import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 
 @ExtendWith(MockitoExtension.class)
@@ -38,6 +45,65 @@ class RecipeServiceTest {
         underTestRecipeService.getAllRecipes();
         //then
         verify(recipeRepository).findAll();
+    }
+
+    @Test
+    void canGetRecipesByNameContaining() {
+        //given
+        String name = "Recipe name";
+        //when
+        underTestRecipeService.getRecipesByNameContaining(name);
+        //then
+        ArgumentCaptor<String> listRecipesArgumentCaptor = ArgumentCaptor.forClass(String.class);
+        verify(recipeRepository).findByNameContaining(listRecipesArgumentCaptor.capture());
+
+        String capturedName = listRecipesArgumentCaptor.getValue();
+        assertThat(capturedName).isEqualTo(name);
+    }
+
+    @Test
+    void canGetRecipeById() {
+        //give
+        Long id = 1L;
+        Recipe recipe = new Recipe(1L,
+                "Carroten soup",
+                "Delicious tomate soup",
+                List.of("Tomaten", "Peper", "sól"),
+                List.of("1. Put 1kg tomate to thermomix", "2. Add salt"));
+
+        RecipeDto recipeDto = new RecipeDto(
+                "Carroten soup",
+                "Delicious tomate soup",
+                List.of("Tomaten", "Peper", "sól"),
+                List.of("1. Put 1kg tomate to thermomix", "2. Add salt"));
+
+        given(recipeRepository.findById(anyLong())).willReturn(Optional.of(recipe));
+        given(recipeMapper.convertToDto(any())).willReturn(recipeDto);
+        //when
+        underTestRecipeService.getRecipeById(id);
+        //then
+        ArgumentCaptor<Long> recipeIdArgumentCaptor = ArgumentCaptor.forClass(Long.class);
+        verify(recipeRepository).findById(recipeIdArgumentCaptor.capture());
+        Long capturedId = recipeIdArgumentCaptor.getValue();
+        assertThat(capturedId).isEqualTo(id);
+    }
+
+    @Test
+    void canGetRecipeByIdWillThrowWhenCantFind() {
+        //give
+        Long id = 1L;
+        Recipe recipe = new Recipe(1L,
+                "Carroten soup",
+                "Delicious tomate soup",
+                List.of("Tomaten", "Peper", "sól"),
+                List.of("1. Put 1kg tomate to thermomix", "2. Add salt"));
+
+        given(recipeRepository.findById(id)).willReturn(Optional.empty());
+        //when
+        //then
+        assertThatThrownBy(() -> underTestRecipeService.getRecipeById(recipe.getId()))
+                .isInstanceOf(CustomNotFoundException.class)
+                .hasMessageContaining("Not found recipe with id: " + id);
     }
 
     @Test
@@ -78,6 +144,26 @@ class RecipeServiceTest {
         verify(recipeRepository).deleteById(recipeIdArgumentCaptor.capture());
         final Long capturedId = recipeIdArgumentCaptor.getValue();
         assertThat(capturedId).isEqualTo(recipe.getId());
+    }
+
+    @Test
+    void removeRecipeWillThrowIfInvalidId() {
+        //given
+        Recipe recipe = new Recipe(1L,
+                "Carroten soup",
+                "Delicious tomate soup",
+                List.of("Tomaten", "Peper", "sól"),
+                List.of("1. Put 1kg tomate to thermomix", "2. Add salt"));
+
+        given(recipeRepository.findById(anyLong())).willReturn(Optional.empty());
+        //when
+        //then
+        assertThatThrownBy(() -> underTestRecipeService.deleteRecipe(recipe.getId()))
+                .isInstanceOf(CustomNotFoundException.class)
+                .hasMessageContaining("Not found recipe with id: " + recipe.getId());
+
+        verify(recipeRepository, never()).deleteById(any());
+
     }
 
 }

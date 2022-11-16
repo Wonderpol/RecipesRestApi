@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.*;
 
 
 import java.util.List;
-import java.util.Map;
 
 @RestController
 @RequestMapping("/api/recipe")
@@ -36,7 +35,7 @@ public class RecipeController {
 
     @GetMapping("/search")
     private ResponseEntity<List<Recipe>> getRecipeByName(@RequestParam String name) {
-        final List<Recipe> recipe = recipeService.getRecipeByName(name);
+        final List<Recipe> recipe = recipeService.getRecipesByNameContaining(name);
         return new ResponseEntity<>(recipe, HttpStatus.OK);
     }
 

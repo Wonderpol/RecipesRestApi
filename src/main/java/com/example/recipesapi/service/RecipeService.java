@@ -9,9 +9,7 @@ import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Collections;
 import java.util.List;
-import java.util.Map;
 
 @Service
 @Log4j2
@@ -35,7 +33,7 @@ public class RecipeService {
                 .map(recipeMapper::convertToDto)
                 .orElseThrow(() -> {
                     log.error("Can't find recipe with id: " + id);
-                    throw new CustomNotFoundException();
+                    throw new CustomNotFoundException("Not found recipe with id: " + id);
                 });
     }
 
@@ -47,14 +45,14 @@ public class RecipeService {
         Recipe recipe = recipeRepository.findById(id)
                         .orElseThrow(() -> {
                             log.error("Can't remove recipe with id: " + id);
-                            throw new CustomNotFoundException();
+                            throw new CustomNotFoundException("Not found recipe with id: " + id);
                         });
 
         recipeRepository.deleteById(recipe.getId());
 
     }
 
-    public List<Recipe> getRecipeByName(String name) {
+    public List<Recipe> getRecipesByNameContaining(String name) {
         return recipeRepository.findByNameContaining(name);
     }
 
