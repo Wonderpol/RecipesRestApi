@@ -10,6 +10,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.modelmapper.ModelMapper;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
@@ -31,11 +32,14 @@ class RecipeMapperTest {
     @Test
     void convertToDtoShouldReturnRecipeDto() {
         //given
+
         Recipe recipe = new Recipe(1L,
                 "Carroten soup",
                 "Delicious tomate soup",
+                "soup",
                 List.of("Tomaten", "Peper", "sól"),
-                List.of("1. Put 1kg tomate to thermomix", "2. Add salt"));
+                List.of("Tomaten", "Peper", "sól"),
+                LocalDateTime.now());
         //when
         recipeMapperUnderTest.convertToDto(recipe);
 

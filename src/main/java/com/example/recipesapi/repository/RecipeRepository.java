@@ -8,6 +8,7 @@ import java.util.List;
 
 @Repository
 public interface RecipeRepository extends JpaRepository<Recipe, Long> {
-    List<Recipe> findByNameContaining(String name);
+    List<Recipe> findByNameContainingOrderByDateDesc(String name);
 
+    List<Recipe> findAllByCategoryOrderByDateDesc(String category);
 }

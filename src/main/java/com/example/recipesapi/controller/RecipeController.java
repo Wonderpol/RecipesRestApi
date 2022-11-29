@@ -33,9 +33,15 @@ public class RecipeController {
         return new ResponseEntity<>(recipeDto, HttpStatus.OK);
     }
 
-    @GetMapping("/search")
+    @GetMapping(value = "/search/", params = "name")
     private ResponseEntity<List<Recipe>> getRecipeByName(@RequestParam String name) {
         final List<Recipe> recipe = recipeService.getRecipesByNameContaining(name);
+        return new ResponseEntity<>(recipe, HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/search/", params = "category")
+    private ResponseEntity<List<Recipe>> getRecipesByCategory(@RequestParam String category) {
+        final List<Recipe> recipe = recipeService.getRecipesByCategory(category);
         return new ResponseEntity<>(recipe, HttpStatus.OK);
     }
 

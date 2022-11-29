@@ -4,11 +4,15 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.Hibernate;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -18,6 +22,7 @@ import java.util.Objects;
 @Getter
 @Entity
 @Table(name = "Recipes")
+@EntityListeners(AuditingEntityListener.class)
 public class Recipe {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -33,11 +38,20 @@ public class Recipe {
     @NotBlank
     private String description;
 
+    @NotBlank
+    @NotNull
+    @NotEmpty
+    private String category;
+
     @ElementCollection
     private List<String> ingredients = new ArrayList<>();
 
     @ElementCollection
     private List<String> directions = new ArrayList<>();
+
+    @CreatedDate
+    @LastModifiedDate
+    private LocalDateTime date;
 
     @Override
     public boolean equals(final Object o) {

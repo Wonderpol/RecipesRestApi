@@ -13,6 +13,7 @@ import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -53,7 +54,7 @@ class RecipeServiceTest {
         underTestRecipeService.getRecipesByNameContaining(name);
         //then
         ArgumentCaptor<String> listRecipesArgumentCaptor = ArgumentCaptor.forClass(String.class);
-        verify(recipeRepository).findByNameContaining(listRecipesArgumentCaptor.capture());
+        verify(recipeRepository).findByNameContainingOrderByDateDesc(listRecipesArgumentCaptor.capture());
 
         String capturedName = listRecipesArgumentCaptor.getValue();
         assertThat(capturedName).isEqualTo(name);
@@ -66,14 +67,18 @@ class RecipeServiceTest {
         Recipe recipe = new Recipe(1L,
                 "Carroten soup",
                 "Delicious tomate soup",
+                "soup",
                 List.of("Tomaten", "Peper", "sól"),
-                List.of("1. Put 1kg tomate to thermomix", "2. Add salt"));
+                List.of("Tomaten", "Peper", "sól"),
+                LocalDateTime.now());
 
         RecipeDto recipeDto = new RecipeDto(
                 "Carroten soup",
                 "Delicious tomate soup",
+                "soup",
                 List.of("Tomaten", "Peper", "sól"),
-                List.of("1. Put 1kg tomate to thermomix", "2. Add salt"));
+                List.of("Tomaten", "Peper", "sól"),
+                LocalDateTime.now());
 
         given(recipeRepository.findById(anyLong())).willReturn(Optional.of(recipe));
         given(recipeMapper.convertToDto(any())).willReturn(recipeDto);
@@ -93,8 +98,10 @@ class RecipeServiceTest {
         Recipe recipe = new Recipe(1L,
                 "Carroten soup",
                 "Delicious tomate soup",
+                "soup",
                 List.of("Tomaten", "Peper", "sól"),
-                List.of("1. Put 1kg tomate to thermomix", "2. Add salt"));
+                List.of("Tomaten", "Peper", "sól"),
+                LocalDateTime.now());
 
         given(recipeRepository.findById(id)).willReturn(Optional.empty());
         //when
@@ -110,8 +117,10 @@ class RecipeServiceTest {
         Recipe recipe = new Recipe(1L,
                 "Carroten soup",
                 "Delicious tomate soup",
+                "soup",
                 List.of("Tomaten", "Peper", "sól"),
-                List.of("1. Put 1kg tomate to thermomix", "2. Add salt"));
+                List.of("Tomaten", "Peper", "sól"),
+                LocalDateTime.now());
         //when
         underTestRecipeService.addRecipe(recipe);
         //then
@@ -129,8 +138,10 @@ class RecipeServiceTest {
         Recipe recipe = new Recipe(1L,
                 "Carroten soup",
                 "Delicious tomate soup",
+                "soup",
                 List.of("Tomaten", "Peper", "sól"),
-                List.of("1. Put 1kg tomate to thermomix", "2. Add salt"));
+                List.of("Tomaten", "Peper", "sól"),
+                LocalDateTime.now());
 
         given(recipeRepository.findById(recipe.getId())).willReturn(Optional.of(recipe));
         //when
@@ -150,8 +161,10 @@ class RecipeServiceTest {
         Recipe recipe = new Recipe(1L,
                 "Carroten soup",
                 "Delicious tomate soup",
+                "soup",
                 List.of("Tomaten", "Peper", "sól"),
-                List.of("1. Put 1kg tomate to thermomix", "2. Add salt"));
+                List.of("Tomaten", "Peper", "sól"),
+                LocalDateTime.now());
 
         given(recipeRepository.findById(anyLong())).willReturn(Optional.empty());
         //when
