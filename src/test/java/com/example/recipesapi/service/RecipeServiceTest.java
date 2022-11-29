@@ -61,6 +61,20 @@ class RecipeServiceTest {
     }
 
     @Test
+    void canGetRecipesByCategory() {
+        //given
+        String category = "category";
+        //when
+        underTestRecipeService.getRecipesByCategory(category);
+        //then
+        ArgumentCaptor<String> listRecipesArgumentCaptor = ArgumentCaptor.forClass(String.class);
+        verify(recipeRepository).findAllByCategoryOrderByDateDesc(listRecipesArgumentCaptor.capture());
+
+        String capturedName = listRecipesArgumentCaptor.getValue();
+        assertThat(capturedName).isEqualTo(category);
+    }
+
+    @Test
     void canGetRecipeById() {
         //give
         Long id = 1L;
