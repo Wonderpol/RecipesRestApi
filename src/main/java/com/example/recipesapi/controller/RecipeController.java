@@ -29,7 +29,7 @@ public class RecipeController {
 
     @GetMapping("{id}")
     private ResponseEntity<RecipeDto> getRecipeById(@PathVariable Long id) {
-        final RecipeDto recipeDto = recipeService.getRecipeById(id);
+        final RecipeDto recipeDto = recipeService.getRecipeDtoById(id);
         return new ResponseEntity<>(recipeDto, HttpStatus.OK);
     }
 
@@ -54,7 +54,7 @@ public class RecipeController {
     private ResponseEntity<RecipeDto> updateRecipe(@PathVariable Long id, @RequestBody Recipe recipe) {
         recipeService.updateWholeRecipe(id, recipe);
 
-        return new ResponseEntity<>(recipeService.getRecipeById(id), HttpStatus.OK);
+        return new ResponseEntity<>(recipeService.getRecipeDtoById(id), HttpStatus.OK);
     }
 
     @DeleteMapping("{id}")

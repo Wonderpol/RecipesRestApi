@@ -139,7 +139,7 @@ class RecipeServiceTest {
         given(recipeRepository.findById(anyLong())).willReturn(Optional.of(recipe));
         given(recipeMapper.convertToDto(any())).willReturn(recipeDto);
         //when
-        underTestRecipeService.getRecipeById(id);
+        underTestRecipeService.getRecipeDtoById(id);
         //then
         ArgumentCaptor<Long> recipeIdArgumentCaptor = ArgumentCaptor.forClass(Long.class);
         verify(recipeRepository).findById(recipeIdArgumentCaptor.capture());
@@ -162,7 +162,7 @@ class RecipeServiceTest {
         given(recipeRepository.findById(id)).willReturn(Optional.empty());
         //when
         //then
-        assertThatThrownBy(() -> underTestRecipeService.getRecipeById(recipe.getId()))
+        assertThatThrownBy(() -> underTestRecipeService.getRecipeDtoById(recipe.getId()))
                 .isInstanceOf(CustomNotFoundException.class)
                 .hasMessageContaining("Not found recipe with id: " + id);
     }

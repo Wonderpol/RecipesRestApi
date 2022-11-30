@@ -28,9 +28,17 @@ public class RecipeService {
         return recipeRepository.findAll();
     }
 
-    public RecipeDto getRecipeById(Long id) {
+    public RecipeDto getRecipeDtoById(Long id) {
         return recipeRepository.findById(id)
                 .map(recipeMapper::convertToDto)
+                .orElseThrow(() -> {
+                    log.error("Can't find recipe with id: " + id);
+                    throw new CustomNotFoundException("Not found recipe with id: " + id);
+                });
+    }
+
+    private Recipe getRecipeById(Long id) {
+        return recipeRepository.findById(id)
                 .orElseThrow(() -> {
                     log.error("Can't find recipe with id: " + id);
                     throw new CustomNotFoundException("Not found recipe with id: " + id);
@@ -41,6 +49,7 @@ public class RecipeService {
         recipeRepository.save(recipe);
     }
 
+    //TODO: Replace fetching recipe with function getRecipeById that already throws to make it DRY
     public void deleteRecipe(Long id) {
         Recipe recipe = recipeRepository.findById(id)
                         .orElseThrow(() -> {
@@ -74,13 +83,4 @@ public class RecipeService {
     public List<Recipe> getRecipesByCategory(String category) {
         return recipeRepository.findAllByCategoryOrderByDateDesc(category);
     }
-
-    private Recipe getRecipeByIdOrThrow(Long id) {
-        return recipeRepository.findById(id)
-                .orElseThrow(() -> {
-                    log.error("Can't remove recipe with id: " + id);
-                    throw new CustomNotFoundException("Not found recipe with id: " + id);
-                });
-    }
-
 }
