@@ -50,6 +50,13 @@ public class RecipeController {
         recipeService.addRecipe(recipe);
     }
 
+    @PutMapping("{id}")
+    private ResponseEntity<RecipeDto> updateRecipe(@PathVariable Long id, @RequestBody Recipe recipe) {
+        recipeService.updateWholeRecipe(id, recipe);
+
+        return new ResponseEntity<>(recipeService.getRecipeById(id), HttpStatus.OK);
+    }
+
     @DeleteMapping("{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     private void removeRecipe(@PathVariable Long id) {

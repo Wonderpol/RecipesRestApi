@@ -52,6 +52,21 @@ public class RecipeService {
 
     }
 
+    public void updateWholeRecipe(Long id, Recipe modifiedRecipe) {
+        Recipe recipe = recipeRepository.findById(id)
+                .orElseThrow(() -> {
+                    log.error("Can't remove recipe with id: " + id);
+                    throw new CustomNotFoundException("Not found recipe with id: " + id);
+                });
+        recipe.setName(modifiedRecipe.getName());
+        recipe.setDescription(modifiedRecipe.getDescription());
+        recipe.setCategory(modifiedRecipe.getCategory());
+        recipe.setIngredients(modifiedRecipe.getIngredients());
+        recipe.setDirections(modifiedRecipe.getDirections());
+
+        recipeRepository.save(recipe);
+    }
+
     public List<Recipe> getRecipesByNameContaining(String name) {
         return recipeRepository.findByNameContainingOrderByDateDesc(name);
     }
