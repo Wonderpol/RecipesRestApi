@@ -111,7 +111,7 @@ class RecipeServiceTest {
         given(recipeRepository.findById(anyLong())).willReturn(Optional.empty());
         //when
         //then
-        assertThatThrownBy(() -> underTestRecipeService.getRecipeById(id))
+        assertThatThrownBy(() -> underTestRecipeService.updateWholeRecipe(id, any()))
                 .isInstanceOf(CustomNotFoundException.class)
                 .hasMessageContaining("Not found recipe with id: " + id);
     }

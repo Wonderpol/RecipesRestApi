@@ -75,4 +75,12 @@ public class RecipeService {
         return recipeRepository.findAllByCategoryOrderByDateDesc(category);
     }
 
+    private Recipe getRecipeByIdOrThrow(Long id) {
+        return recipeRepository.findById(id)
+                .orElseThrow(() -> {
+                    log.error("Can't remove recipe with id: " + id);
+                    throw new CustomNotFoundException("Not found recipe with id: " + id);
+                });
+    }
+
 }
