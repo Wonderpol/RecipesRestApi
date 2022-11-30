@@ -75,8 +75,50 @@ class RecipeServiceTest {
     }
 
     @Test
+    void canUpdateWholeRecipe() {
+        //given
+        Long id = 1L;
+        Recipe recipe = new Recipe(1L,
+                "Carroten soup",
+                "Delicious tomate soup",
+                "soup",
+                List.of("Tomaten", "Peper", "sól"),
+                List.of("Tomaten", "Peper", "sól"),
+                LocalDateTime.now());
+
+        Recipe newRecipe = new Recipe(1L,
+                "Carroten soup edited",
+                "Delicious tomate soup edited",
+                "soup edited",
+                List.of("Tomaten1", "Peper1", "sól1"),
+                List.of("Tomaten1", "Peper1", "sól1"),
+                LocalDateTime.now());
+
+        given(recipeRepository.findById(anyLong())).willReturn(Optional.of(recipe));
+        //then
+        underTestRecipeService.updateWholeRecipe(id, newRecipe);
+
+        ArgumentCaptor<Recipe> recipeArgumentCaptor = ArgumentCaptor.forClass(Recipe.class);
+        verify(recipeRepository).save(recipeArgumentCaptor.capture());
+        Recipe capturedRecipe = recipeArgumentCaptor.getValue();
+        assertThat(capturedRecipe).isEqualTo(newRecipe);
+    }
+
+    @Test
+    void updateWholeRecipeWillThrowWhenInvalidId() {
+        //given
+        Long id = 1L;
+        given(recipeRepository.findById(anyLong())).willReturn(Optional.empty());
+        //when
+        //then
+        assertThatThrownBy(() -> underTestRecipeService.getRecipeById(id))
+                .isInstanceOf(CustomNotFoundException.class)
+                .hasMessageContaining("Not found recipe with id: " + id);
+    }
+
+    @Test
     void canGetRecipeById() {
-        //give
+        //given
         Long id = 1L;
         Recipe recipe = new Recipe(1L,
                 "Carroten soup",
@@ -106,7 +148,7 @@ class RecipeServiceTest {
     }
 
     @Test
-    void canGetRecipeByIdWillThrowWhenCantFind() {
+    void getRecipeByIdWillThrowWhenCantFind() {
         //give
         Long id = 1L;
         Recipe recipe = new Recipe(1L,
