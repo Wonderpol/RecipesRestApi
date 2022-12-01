@@ -29,44 +29,23 @@ public class RecipeService {
     }
 
     public RecipeDto getRecipeDtoById(Long id) {
-        return recipeRepository.findById(id)
-                .map(recipeMapper::convertToDto)
-                .orElseThrow(() -> {
-                    log.error("Can't find recipe with id: " + id);
-                    throw new CustomNotFoundException("Not found recipe with id: " + id);
-                });
-    }
-
-    private Recipe getRecipeById(Long id) {
-        return recipeRepository.findById(id)
-                .orElseThrow(() -> {
-                    log.error("Can't find recipe with id: " + id);
-                    throw new CustomNotFoundException("Not found recipe with id: " + id);
-                });
+        return recipeMapper.convertToDto(getRecipeById(id));
     }
 
     public void addRecipe(Recipe recipe) {
         recipeRepository.save(recipe);
     }
 
-    //TODO: Replace fetching recipe with function getRecipeById that already throws to make it DRY
     public void deleteRecipe(Long id) {
-        Recipe recipe = recipeRepository.findById(id)
-                        .orElseThrow(() -> {
-                            log.error("Can't remove recipe with id: " + id);
-                            throw new CustomNotFoundException("Not found recipe with id: " + id);
-                        });
+        Recipe recipe = getRecipeById(id);
 
         recipeRepository.deleteById(recipe.getId());
 
     }
 
     public void updateWholeRecipe(Long id, Recipe modifiedRecipe) {
-        Recipe recipe = recipeRepository.findById(id)
-                .orElseThrow(() -> {
-                    log.error("Can't remove recipe with id: " + id);
-                    throw new CustomNotFoundException("Not found recipe with id: " + id);
-                });
+        Recipe recipe = getRecipeById(id);
+
         recipe.setName(modifiedRecipe.getName());
         recipe.setDescription(modifiedRecipe.getDescription());
         recipe.setCategory(modifiedRecipe.getCategory());
@@ -82,5 +61,13 @@ public class RecipeService {
 
     public List<Recipe> getRecipesByCategory(String category) {
         return recipeRepository.findAllByCategoryOrderByDateDesc(category);
+    }
+
+    private Recipe getRecipeById(Long id) {
+        return recipeRepository.findById(id)
+                .orElseThrow(() -> {
+                    log.error("Can't find recipe with id: " + id);
+                    throw new CustomNotFoundException("Not found recipe with id: " + id);
+                });
     }
 }
