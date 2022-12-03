@@ -7,6 +7,9 @@ import lombok.Setter;
 import org.springframework.data.annotation.CreatedDate;
 
 import javax.persistence.ElementCollection;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -16,10 +19,19 @@ import java.util.List;
 @Getter
 @Setter
 public class RecipeDto {
+    @NotBlank
+    @NotNull
+    @NotEmpty
     private String name;
 
+    @NotBlank
+    @NotNull
+    @NotEmpty
     private String description;
 
+    @NotBlank
+    @NotNull
+    @NotEmpty
     private String category;
 
     @ElementCollection
