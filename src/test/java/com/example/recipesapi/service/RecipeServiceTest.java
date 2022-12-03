@@ -54,7 +54,7 @@ class RecipeServiceTest {
         underTestRecipeService.getRecipesByNameContaining(name);
         //then
         ArgumentCaptor<String> listRecipesArgumentCaptor = ArgumentCaptor.forClass(String.class);
-        verify(recipeRepository).findByNameContainingOrderByDateDesc(listRecipesArgumentCaptor.capture());
+        verify(recipeRepository).findByNameContainingIgnoreCaseOrderByDateDesc(listRecipesArgumentCaptor.capture());
 
         String capturedName = listRecipesArgumentCaptor.getValue();
         assertThat(capturedName).isEqualTo(name);
@@ -68,7 +68,7 @@ class RecipeServiceTest {
         underTestRecipeService.getRecipesByCategory(category);
         //then
         ArgumentCaptor<String> listRecipesArgumentCaptor = ArgumentCaptor.forClass(String.class);
-        verify(recipeRepository).findAllByCategoryOrderByDateDesc(listRecipesArgumentCaptor.capture());
+        verify(recipeRepository).findAllByCategoryIgnoreCaseOrderByDateDesc(listRecipesArgumentCaptor.capture());
 
         String capturedName = listRecipesArgumentCaptor.getValue();
         assertThat(capturedName).isEqualTo(category);

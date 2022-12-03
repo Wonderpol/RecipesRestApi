@@ -56,11 +56,11 @@ public class RecipeService {
     }
 
     public List<Recipe> getRecipesByNameContaining(String name) {
-        return recipeRepository.findByNameContainingOrderByDateDesc(name);
+        return recipeRepository.findByNameContainingIgnoreCaseOrderByDateDesc(name);
     }
 
     public List<Recipe> getRecipesByCategory(String category) {
-        return recipeRepository.findAllByCategoryOrderByDateDesc(category);
+        return recipeRepository.findAllByCategoryIgnoreCaseOrderByDateDesc(category);
     }
 
     private Recipe getRecipeById(Long id) {
