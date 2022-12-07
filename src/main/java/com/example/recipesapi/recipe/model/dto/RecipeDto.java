@@ -1,4 +1,4 @@
-package com.example.recipesapi.model.dto;
+package com.example.recipesapi.recipe.model.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

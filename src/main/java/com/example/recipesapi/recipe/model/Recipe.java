@@ -1,4 +1,4 @@
-package com.example.recipesapi.model;
+package com.example.recipesapi.recipe.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

@@ -1,4 +1,4 @@
-package com.example.recipesapi.exception;
+package com.example.recipesapi.recipe.exception;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
