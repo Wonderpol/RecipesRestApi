@@ -28,15 +28,13 @@ public class SpringSecurityConfig {
         http
                 .authorizeRequests()
                 .antMatchers("/api/auth/register").permitAll()
+                .antMatchers("/h2-console/**").anonymous()
                 .and()
                 .authorizeRequests().anyRequest().authenticated()
                 .and()
                 .httpBasic()
                 .and()
-                .cors()
-                .disable()
-                .csrf()
-                .disable();
+                .csrf().disable().headers().frameOptions().disable();
 
         return http.build();
     }
