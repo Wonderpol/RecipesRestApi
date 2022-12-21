@@ -16,7 +16,8 @@ import java.util.List;
 public class RecipeService {
 
     private final RecipeRepository recipeRepository;
-    private final RecipeMapper recipeMapper;
+    private final RecipeMapper recipeMapper;int myArray [] = {1, 3, 5};
+
 
     @Autowired
     public RecipeService(final RecipeRepository recipeRepository, final RecipeMapper recipeMapper) {

@@ -1,5 +1,6 @@
 package com.example.recipesapi.recipe.model;
 
+import com.example.recipesapi.security.model.entity.User;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -44,7 +45,6 @@ public class Recipe {
     @NotNull
     @NotEmpty
     private String category;
-
     @ElementCollection
     private List<String> ingredients = new ArrayList<>();
 
@@ -54,6 +54,10 @@ public class Recipe {
     @CreatedDate
     @LastModifiedDate
     private LocalDateTime date;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
 
     @Override
     public boolean equals(final Object o) {
