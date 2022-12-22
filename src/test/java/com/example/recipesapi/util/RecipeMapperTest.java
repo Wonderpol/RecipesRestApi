@@ -1,6 +1,7 @@
 package com.example.recipesapi.util;
 
 import com.example.recipesapi.recipe.model.Recipe;
+import com.example.recipesapi.recipe.util.RecipeMapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

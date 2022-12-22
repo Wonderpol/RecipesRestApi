@@ -2,7 +2,7 @@ package com.example.recipesapi.recipe.controller;
 
 import com.example.recipesapi.recipe.model.Recipe;
 import com.example.recipesapi.recipe.model.dto.RecipeDto;
-import com.example.recipesapi.recipe.service.RecipeService;
+import com.example.recipesapi.recipe.model.dto.RecipeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -25,7 +25,7 @@ public class RecipeController {
     }
 
     @GetMapping
-    private ResponseEntity<List<Recipe>> allRecipes() {
+    private ResponseEntity<List<RecipeDto>> allRecipes() {
         return new ResponseEntity<>(recipeService.getAllRecipes(), HttpStatus.OK);
     }
 
