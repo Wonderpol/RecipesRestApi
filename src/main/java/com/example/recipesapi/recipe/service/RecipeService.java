@@ -4,25 +4,32 @@ import com.example.recipesapi.recipe.exception.CustomNotFoundException;
 import com.example.recipesapi.recipe.model.Recipe;
 import com.example.recipesapi.recipe.model.dto.RecipeDto;
 import com.example.recipesapi.recipe.repository.RecipeRepository;
+import com.example.recipesapi.security.model.entity.User;
+import com.example.recipesapi.security.repository.UserRepository;
 import com.example.recipesapi.util.RecipeMapper;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import java.security.Principal;
 import java.util.List;
 
 @Service
 @Log4j2
 public class RecipeService {
+    private final UserRepository userRepository;
 
     private final RecipeRepository recipeRepository;
-    private final RecipeMapper recipeMapper;int myArray [] = {1, 3, 5};
-
+    private final RecipeMapper recipeMapper;
 
     @Autowired
-    public RecipeService(final RecipeRepository recipeRepository, final RecipeMapper recipeMapper) {
+    public RecipeService(final RecipeRepository recipeRepository, final RecipeMapper recipeMapper,
+                         final UserRepository userRepository) {
         this.recipeRepository = recipeRepository;
         this.recipeMapper = recipeMapper;
+        this.userRepository = userRepository;
     }
 
     public List<Recipe> getAllRecipes() {
@@ -33,8 +40,13 @@ public class RecipeService {
         return recipeMapper.convertToDto(getRecipeById(id));
     }
 
-    public void addRecipe(Recipe recipe) {
-        recipeRepository.save(recipe);
+    @Transactional
+    public void addRecipe(Recipe recipe, Authentication authentication) {
+        User user = userRepository.findByEmail(authentication.getName()).orElseThrow();
+        recipe.setUser(user);
+        Recipe recipe1 = recipeRepository.saveAndFlush(recipe);
+        user.getRecipes().add(recipe1);
+        userRepository.save(user);
     }
 
     public void deleteRecipe(Long id) {

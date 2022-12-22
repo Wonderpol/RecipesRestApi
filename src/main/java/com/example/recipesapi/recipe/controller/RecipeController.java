@@ -6,6 +6,7 @@ import com.example.recipesapi.recipe.service.RecipeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 
@@ -47,8 +48,8 @@ public class RecipeController {
     }
 
     @PostMapping("/new")
-    private void newRecipe(@RequestBody Recipe recipe) {
-        recipeService.addRecipe(recipe);
+    private void newRecipe(@RequestBody Recipe recipe, Authentication authentication) {
+        recipeService.addRecipe(recipe, authentication);
     }
 
     @PutMapping("{id}")

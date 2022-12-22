@@ -1,5 +1,6 @@
 package com.example.recipesapi.recipe.model.dto;
 
+import com.example.recipesapi.security.model.entity.User;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -42,4 +43,5 @@ public class RecipeDto {
 
     @CreatedDate
     private LocalDateTime date;
+    private User user;
 }

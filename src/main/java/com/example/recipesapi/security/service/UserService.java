@@ -13,7 +13,8 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 
-@Service @Log4j2
+@Service
+@Log4j2
 public class UserService implements UserDetailsService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
@@ -33,7 +34,6 @@ public class UserService implements UserDetailsService {
         return new org.springframework.security.core.userdetails.User(user.getEmail(), user.getPassword(), simpleGrantedAuthorities);
     }
 
-
     public User registerUser(AuthenticationRequest user) {
         userRepository.findByEmail(user.getEmail())
                 .ifPresent(user1 -> {
@@ -42,4 +42,9 @@ public class UserService implements UserDetailsService {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         return userRepository.saveAndFlush(new User(user.getEmail(), user.getPassword()));
     }
+
+    public User getUserById(Long id) {
+        return userRepository.findById(id).orElseThrow();
+    }
+
 }
