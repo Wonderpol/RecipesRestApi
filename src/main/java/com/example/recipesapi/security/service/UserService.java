@@ -1,15 +1,19 @@
 package com.example.recipesapi.security.service;
 
+import com.example.recipesapi.security.exception.UserNotFoundException;
 import com.example.recipesapi.security.model.AuthenticationRequest;
 import com.example.recipesapi.security.model.entity.User;
 import com.example.recipesapi.security.repository.UserRepository;
+import lombok.extern.log4j.Log4j2;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-@Service
+import java.util.ArrayList;
+
+@Service @Log4j2
 public class UserService implements UserDetailsService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
@@ -20,8 +24,13 @@ public class UserService implements UserDetailsService {
     }
 
     @Override
-    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        return userRepository.findByEmail(email).orElseThrow(RuntimeException::new);
+    public UserDetails loadUserByUsername(String email) {
+        final User user = userRepository.findByEmail(email)
+                .orElseThrow(
+                        () -> new UserNotFoundException("User with email: " + email + " not found")
+                );
+        final ArrayList<SimpleGrantedAuthority> simpleGrantedAuthorities = new ArrayList<>();
+        return new org.springframework.security.core.userdetails.User(user.getEmail(), user.getPassword(), simpleGrantedAuthorities);
     }
 
 
