@@ -1,4 +1,4 @@
-package com.example.recipesapi.security.model;
+package com.example.recipesapi.security.model.request;
 
 import lombok.Data;
 

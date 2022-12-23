@@ -26,7 +26,8 @@ public class RecipeController {
 
     @GetMapping
     private ResponseEntity<List<RecipeDto>> allRecipes() {
-        return new ResponseEntity<>(recipeService.getAllRecipes(), HttpStatus.OK);
+        List<RecipeDto> recipes = recipeService.getAllRecipes();
+        return new ResponseEntity<>(recipes, HttpStatus.OK);
     }
 
     @GetMapping("{id}")

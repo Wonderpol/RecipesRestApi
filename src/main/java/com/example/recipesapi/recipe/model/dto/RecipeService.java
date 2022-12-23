@@ -2,16 +2,14 @@ package com.example.recipesapi.recipe.model.dto;
 
 import com.example.recipesapi.recipe.exception.CustomNotFoundException;
 import com.example.recipesapi.recipe.model.Recipe;
-import com.example.recipesapi.recipe.model.dto.RecipeDto;
 import com.example.recipesapi.recipe.repository.RecipeRepository;
-import com.example.recipesapi.security.model.entity.User;
+import com.example.recipesapi.security.model.CustomUserDetails;
 import com.example.recipesapi.security.repository.UserRepository;
 import com.example.recipesapi.recipe.util.RecipeMapper;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -33,7 +31,8 @@ public class RecipeService {
 
     public List<RecipeDto> getAllRecipes() {
         return recipeRepository.findAll()
-                .stream().map(recipeMapper::convertToDto)
+                .stream()
+                .map(recipeMapper::convertToDto)
                 .toList();
     }
 
@@ -41,13 +40,10 @@ public class RecipeService {
         return recipeMapper.convertToDto(getRecipeById(id));
     }
 
-    @Transactional
     public void addRecipe(Recipe recipe, Authentication authentication) {
-        User user = userRepository.findByEmail(authentication.getName()).orElseThrow();
-        recipe.setUser(user);
-        Recipe recipe1 = recipeRepository.saveAndFlush(recipe);
-        user.getRecipes().add(recipe1);
-        userRepository.save(user);
+        CustomUserDetails userDetails = (CustomUserDetails) authentication.getPrincipal();
+        recipe.setUser(userDetails.getUser());
+        recipeRepository.save(recipe);
     }
 
     public void deleteRecipe(Long id) {
@@ -77,7 +73,7 @@ public class RecipeService {
         return recipeRepository.findAllByCategoryIgnoreCaseOrderByDateDesc(category);
     }
 
-    private Recipe getRecipeById(Long id) {
+    public Recipe getRecipeById(Long id) {
         return recipeRepository.findById(id)
                 .orElseThrow(() -> {
                     log.error("Can't find recipe with id: " + id);

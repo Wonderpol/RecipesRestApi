@@ -55,7 +55,7 @@ public class Recipe {
     @LastModifiedDate
     private LocalDateTime date;
 
-    @ManyToOne()
+    @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
 

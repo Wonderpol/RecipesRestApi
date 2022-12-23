@@ -1,4 +1,4 @@
-package com.example.recipesapi.security.model.entity.dto;
+package com.example.recipesapi.security.model.dto;
 
 import com.example.recipesapi.security.model.entity.User;
 import org.modelmapper.ModelMapper;

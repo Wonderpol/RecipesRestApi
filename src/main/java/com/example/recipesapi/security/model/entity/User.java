@@ -1,11 +1,11 @@
 package com.example.recipesapi.security.model.entity;
 
 import com.example.recipesapi.recipe.model.Recipe;
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import org.hibernate.Hibernate;
 import org.hibernate.annotations.DynamicUpdate;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 import java.util.ArrayList;

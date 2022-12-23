@@ -1,17 +1,16 @@
 package com.example.recipesapi.security.service;
 
+import com.example.recipesapi.recipe.exception.CustomNotFoundException;
 import com.example.recipesapi.security.exception.UserNotFoundException;
-import com.example.recipesapi.security.model.AuthenticationRequest;
+import com.example.recipesapi.security.model.CustomUserDetails;
+import com.example.recipesapi.security.model.request.AuthenticationRequest;
 import com.example.recipesapi.security.model.entity.User;
 import com.example.recipesapi.security.repository.UserRepository;
 import lombok.extern.log4j.Log4j2;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-
-import java.util.ArrayList;
 
 @Service
 @Log4j2
@@ -30,14 +29,13 @@ public class UserService implements UserDetailsService {
                 .orElseThrow(
                         () -> new UserNotFoundException("User with email: " + email + " not found")
                 );
-        final ArrayList<SimpleGrantedAuthority> simpleGrantedAuthorities = new ArrayList<>();
-        return new org.springframework.security.core.userdetails.User(user.getEmail(), user.getPassword(), simpleGrantedAuthorities);
+        return new CustomUserDetails(user);
     }
 
     public User registerUser(AuthenticationRequest user) {
         userRepository.findByEmail(user.getEmail())
                 .ifPresent(user1 -> {
-                    throw new RuntimeException();
+                    throw new CustomNotFoundException();
                 });
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         return userRepository.saveAndFlush(new User(user.getEmail(), user.getPassword()));
