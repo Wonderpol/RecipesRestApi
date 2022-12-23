@@ -1,11 +1,9 @@
 package com.example.recipesapi.security.authorization;
 
 import com.example.recipesapi.security.model.CustomUserDetails;
-import com.example.recipesapi.security.model.entity.User;
 import org.springframework.security.access.expression.SecurityExpressionRoot;
 import org.springframework.security.access.expression.method.MethodSecurityExpressionOperations;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.userdetails.UserDetailsService;
 
 public class CustomMethodSecurityExpressionRoot
         extends SecurityExpressionRoot implements MethodSecurityExpressionOperations {
