@@ -9,16 +9,16 @@ import com.example.recipesapi.security.repository.UserRepository;
 import com.example.recipesapi.recipe.util.RecipeMapper;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 @Service
 @Log4j2
 public class RecipeService {
-    private final UserRepository userRepository;
-
     private final RecipeRepository recipeRepository;
     private final RecipeMapper recipeMapper;
 
@@ -27,7 +27,6 @@ public class RecipeService {
                          final UserRepository userRepository) {
         this.recipeRepository = recipeRepository;
         this.recipeMapper = recipeMapper;
-        this.userRepository = userRepository;
     }
 
     public List<RecipeDto> getAllRecipes() {
@@ -47,6 +46,7 @@ public class RecipeService {
         recipeRepository.save(recipe);
     }
 
+    @PreAuthorize("isOwner(#id)")
     public void deleteRecipe(Long id) {
         Recipe recipe = getRecipeById(id);
 
@@ -54,6 +54,7 @@ public class RecipeService {
 
     }
 
+    @PreAuthorize("isOwner(#id)")
     public void updateWholeRecipe(Long id, Recipe modifiedRecipe) {
         Recipe recipe = getRecipeById(id);
 

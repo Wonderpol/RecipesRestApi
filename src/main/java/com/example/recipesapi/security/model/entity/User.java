@@ -27,7 +27,7 @@ public class User {
     private String email;
     @NonNull
     private String password;
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     @JsonIgnore
     private List<Recipe> recipes = new ArrayList<>();
 
