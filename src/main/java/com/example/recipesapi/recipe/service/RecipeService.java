@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -39,6 +40,7 @@ public class RecipeService {
         return recipeMapper.convertToDto(getRecipeById(id));
     }
 
+    @Transactional
     public void addRecipe(Recipe recipe, Authentication authentication) {
         CustomUserDetails userDetails = (CustomUserDetails) authentication.getPrincipal();
         recipe.setUser(userDetails.getUser());
@@ -81,4 +83,11 @@ public class RecipeService {
                     throw new CustomNotFoundException("Not found recipe with id: " + id);
                 });
     }
+
+    public List<Recipe> getAuthenticatedUserRecipes(Authentication authentication) {
+        CustomUserDetails customUserDetails = (CustomUserDetails) authentication.getPrincipal();
+        Long userId = customUserDetails.getUser().getId();
+        return recipeRepository.findAllByUserId(userId);
+    }
+
 }

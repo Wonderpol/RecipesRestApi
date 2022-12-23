@@ -30,6 +30,12 @@ public class RecipeController {
         return new ResponseEntity<>(recipes, HttpStatus.OK);
     }
 
+    @GetMapping("/my")
+    private ResponseEntity<List<Recipe>> allUserRecipes(Authentication authentication) {
+        List<Recipe> recipes = recipeService.getAuthenticatedUserRecipes(authentication);
+        return new ResponseEntity<>(recipes, HttpStatus.OK);
+    }
+
     @GetMapping("{id}")
     private ResponseEntity<RecipeDto> getRecipeById(@PathVariable Long id) {
         final RecipeDto recipeDto = recipeService.getRecipeDtoById(id);

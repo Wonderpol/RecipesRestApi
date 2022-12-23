@@ -2,6 +2,7 @@ package com.example.recipesapi.security.model.entity;
 
 import com.example.recipesapi.recipe.model.entity.Recipe;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
 import org.hibernate.Hibernate;
 import org.hibernate.annotations.DynamicUpdate;
@@ -28,7 +29,7 @@ public class User {
     @NonNull
     private String password;
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
-    @JsonIgnore
+    @JsonManagedReference
     private List<Recipe> recipes = new ArrayList<>();
 
     @Override

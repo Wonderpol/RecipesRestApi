@@ -1,6 +1,7 @@
 package com.example.recipesapi.recipe.model.entity;
 
 import com.example.recipesapi.security.model.entity.User;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -57,6 +58,7 @@ public class Recipe {
 
     @ManyToOne
     @JoinColumn(name = "user_id")
+    @JsonBackReference
     private User user;
 
     @Override
