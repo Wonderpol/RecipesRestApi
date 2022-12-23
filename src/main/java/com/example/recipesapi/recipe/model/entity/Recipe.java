@@ -1,4 +1,4 @@
-package com.example.recipesapi.recipe.model;
+package com.example.recipesapi.recipe.model.entity;
 
 import com.example.recipesapi.security.model.entity.User;
 import lombok.AllArgsConstructor;

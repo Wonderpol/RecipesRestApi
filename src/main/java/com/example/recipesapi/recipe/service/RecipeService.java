@@ -1,7 +1,8 @@
-package com.example.recipesapi.recipe.model.dto;
+package com.example.recipesapi.recipe.service;
 
 import com.example.recipesapi.recipe.exception.CustomNotFoundException;
-import com.example.recipesapi.recipe.model.Recipe;
+import com.example.recipesapi.recipe.model.entity.Recipe;
+import com.example.recipesapi.recipe.model.dto.RecipeDto;
 import com.example.recipesapi.recipe.repository.RecipeRepository;
 import com.example.recipesapi.security.model.CustomUserDetails;
 import com.example.recipesapi.security.repository.UserRepository;

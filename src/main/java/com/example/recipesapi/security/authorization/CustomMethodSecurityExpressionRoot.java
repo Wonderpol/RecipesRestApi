@@ -1,5 +1,6 @@
 package com.example.recipesapi.security.authorization;
 
+import com.example.recipesapi.security.model.CustomUserDetails;
 import com.example.recipesapi.security.model.entity.User;
 import org.springframework.security.access.expression.SecurityExpressionRoot;
 import org.springframework.security.access.expression.method.MethodSecurityExpressionOperations;
@@ -17,8 +18,8 @@ public class CustomMethodSecurityExpressionRoot
     }
 
     public boolean isOwner(Long recipeId) {
-        User user = (User) this.getPrincipal();
-        return user.getRecipes()
+        CustomUserDetails user = (CustomUserDetails) this.getPrincipal();
+        return user.getUser().getRecipes()
                 .stream().anyMatch(recipe -> recipe.getId().equals(recipeId));
     }
 

@@ -2,10 +2,10 @@
 //
 //
 //import com.example.recipesapi.recipe.exception.CustomNotFoundException;
-//import com.example.recipesapi.recipe.model.Recipe;
+//import com.example.recipesapi.recipe.model.entity.Recipe;
 //import com.example.recipesapi.recipe.model.dto.RecipeDto;
 //import com.example.recipesapi.recipe.repository.RecipeRepository;
-//import com.example.recipesapi.recipe.model.dto.RecipeService;
+//import com.example.recipesapi.recipe.service.RecipeService;
 //import com.example.recipesapi.util.RecipeMapper;
 //import org.junit.jupiter.api.BeforeEach;
 //import org.junit.jupiter.api.Test;
