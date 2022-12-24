@@ -26,4 +26,11 @@ public class AuthenticationController {
         final User userById = userService.getUserById(id);
         return userById;
     }
+
+    @GetMapping("/email/{email}")
+    public User getUserByEmail(@PathVariable final String email) {
+        final User user = userService.getUserByEmail(email);
+        return user;
+    }
+
 }

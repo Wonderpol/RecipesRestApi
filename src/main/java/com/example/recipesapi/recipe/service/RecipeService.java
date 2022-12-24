@@ -40,7 +40,6 @@ public class RecipeService {
         return recipeMapper.convertToDto(getRecipeById(id));
     }
 
-    @Transactional
     public void addRecipe(Recipe recipe, Authentication authentication) {
         CustomUserDetails userDetails = (CustomUserDetails) authentication.getPrincipal();
         recipe.setUser(userDetails.getUser());
