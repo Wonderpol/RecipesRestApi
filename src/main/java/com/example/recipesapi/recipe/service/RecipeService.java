@@ -1,18 +1,16 @@
 package com.example.recipesapi.recipe.service;
 
 import com.example.recipesapi.recipe.exception.CustomNotFoundException;
-import com.example.recipesapi.recipe.model.entity.Recipe;
 import com.example.recipesapi.recipe.model.dto.RecipeDto;
+import com.example.recipesapi.recipe.model.entity.Recipe;
 import com.example.recipesapi.recipe.repository.RecipeRepository;
-import com.example.recipesapi.security.model.CustomUserDetails;
-import com.example.recipesapi.security.repository.UserRepository;
 import com.example.recipesapi.recipe.util.RecipeMapper;
+import com.example.recipesapi.security.model.CustomUserDetails;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 

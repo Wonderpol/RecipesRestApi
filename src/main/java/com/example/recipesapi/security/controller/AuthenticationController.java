@@ -1,7 +1,7 @@
 package com.example.recipesapi.security.controller;
 
-import com.example.recipesapi.security.model.request.AuthenticationRequest;
 import com.example.recipesapi.security.model.entity.User;
+import com.example.recipesapi.security.model.request.AuthenticationRequest;
 import com.example.recipesapi.security.service.UserService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

@@ -1,22 +1,16 @@
 package com.example.recipesapi.security.service;
 
-import com.example.recipesapi.recipe.model.entity.Recipe;
 import com.example.recipesapi.security.exception.UserAlreadyExistsException;
 import com.example.recipesapi.security.exception.UserNotFoundException;
 import com.example.recipesapi.security.model.CustomUserDetails;
-import com.example.recipesapi.security.model.request.AuthenticationRequest;
 import com.example.recipesapi.security.model.entity.User;
+import com.example.recipesapi.security.model.request.AuthenticationRequest;
 import com.example.recipesapi.security.repository.UserRepository;
-import org.apache.tomcat.util.http.parser.Authorization;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.security.Principal;
-import java.util.List;
 
 @Service
 public class UserService implements UserDetailsService {

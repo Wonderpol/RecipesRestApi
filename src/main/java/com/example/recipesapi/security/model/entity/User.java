@@ -1,7 +1,6 @@
 package com.example.recipesapi.security.model.entity;
 
 import com.example.recipesapi.recipe.model.entity.Recipe;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
 import org.hibernate.Hibernate;
