@@ -1,4 +1,4 @@
-package com.example.recipesapi.service;
+package com.example.recipesapi.recipe.service;
 
 
 import com.example.recipesapi.recipe.exception.CustomNotFoundException;

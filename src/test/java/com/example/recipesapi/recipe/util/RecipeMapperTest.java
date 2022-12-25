@@ -1,4 +1,4 @@
-package com.example.recipesapi.util;
+package com.example.recipesapi.recipe.util;
 
 import com.example.recipesapi.recipe.model.entity.Recipe;
 import com.example.recipesapi.recipe.util.RecipeMapper;
