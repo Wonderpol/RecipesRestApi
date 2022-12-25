@@ -5,7 +5,6 @@ import com.example.recipesapi.recipe.exception.CustomNotFoundException;
 import com.example.recipesapi.recipe.model.entity.Recipe;
 import com.example.recipesapi.recipe.model.dto.RecipeDto;
 import com.example.recipesapi.recipe.repository.RecipeRepository;
-import com.example.recipesapi.recipe.service.RecipeService;
 import com.example.recipesapi.recipe.util.RecipeMapper;
 import com.example.recipesapi.security.model.CustomUserDetails;
 import com.example.recipesapi.security.model.entity.User;
@@ -13,6 +12,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.security.core.Authentication;
@@ -42,12 +42,8 @@ class RecipeServiceTest {
     private CustomUserDetails customUserDetails;
     @Mock
     private User user;
+    @InjectMocks
     private RecipeService underTestRecipeService;
-
-    @BeforeEach
-    void setUp() {
-        underTestRecipeService = new RecipeService(recipeRepository, recipeMapper);
-    }
 
     @Test
     void canAddRecipe() {
