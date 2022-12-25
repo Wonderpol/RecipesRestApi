@@ -39,7 +39,7 @@ class RecipeMapperTest {
                 "soup",
                 List.of("Tomaten", "Peper", "sól"),
                 List.of("Tomaten", "Peper", "sól"),
-                LocalDateTime.now());
+                LocalDateTime.now(), null);
         //when
         recipeMapperUnderTest.convertToDto(recipe);
 

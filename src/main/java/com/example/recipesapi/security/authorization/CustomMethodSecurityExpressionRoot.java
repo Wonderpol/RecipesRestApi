@@ -17,8 +17,10 @@ public class CustomMethodSecurityExpressionRoot
 
     public boolean isOwner(Long recipeId) {
         CustomUserDetails user = (CustomUserDetails) this.getPrincipal();
-        return user.getUser().getRecipes()
-                .stream().anyMatch(recipe -> recipe.getId().equals(recipeId));
+        return user.getUser()
+                .getRecipes()
+                .stream()
+                .anyMatch(recipe -> recipe.getId().equals(recipeId));
     }
 
     @Override

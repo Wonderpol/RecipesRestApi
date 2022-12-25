@@ -23,8 +23,7 @@ public class RecipeService {
     private final RecipeMapper recipeMapper;
 
     @Autowired
-    public RecipeService(final RecipeRepository recipeRepository, final RecipeMapper recipeMapper,
-                         final UserRepository userRepository) {
+    public RecipeService(final RecipeRepository recipeRepository, final RecipeMapper recipeMapper) {
         this.recipeRepository = recipeRepository;
         this.recipeMapper = recipeMapper;
     }
