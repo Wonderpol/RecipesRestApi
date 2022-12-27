@@ -14,7 +14,6 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-import javax.swing.text.html.Option;
 import java.util.Optional;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
@@ -99,7 +98,6 @@ public class UserServiceTest {
     void getUserById_shouldThrow_UserNotFoundException() {
         //given
         Long userId = 1L;
-        User user = new User("test@test.com", "password");
 
         given(userRepository.findById(any())).willReturn(Optional.empty());
         //when
