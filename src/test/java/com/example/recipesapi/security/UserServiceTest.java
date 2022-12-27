@@ -108,4 +108,33 @@ public class UserServiceTest {
 
     }
 
+    @Test
+    void getUserByEmail_shouldReturnUser() {
+        //given
+        User user = new User("test@test.com", "password");
+
+        given(userRepository.findByEmail(any())).willReturn(Optional.of(user));
+        //when
+        userServiceUnderTest.getUserByEmail(user.getEmail());
+        //then
+
+        final ArgumentCaptor<String> userEmailLongArgumentCaptor = ArgumentCaptor.forClass(String.class);
+        verify(userRepository).findByEmail(userEmailLongArgumentCaptor.capture());
+        final String capturedValue = userEmailLongArgumentCaptor.getValue();
+        assertThat(capturedValue).isEqualTo(user.getEmail());
+    }
+
+    @Test
+    void getUserByEmail_shouldThrow_UserNotFoundException() {
+        //given
+        String email = "test@test.com";
+        given(userRepository.findByEmail(any())).willReturn(Optional.empty());
+        //when
+        //then
+        assertThatThrownBy(() -> userServiceUnderTest.getUserByEmail(email))
+                .isInstanceOf(UserNotFoundException.class)
+                .hasMessageContaining("User with email: " + email + " does not exists");
+
+    }
+
 }
