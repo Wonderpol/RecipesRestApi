@@ -5,7 +5,6 @@ import com.example.recipesapi.security.exception.UserNotFoundException;
 import com.example.recipesapi.security.model.entity.User;
 import com.example.recipesapi.security.model.request.AuthenticationRequest;
 import com.example.recipesapi.security.repository.UserRepository;
-import com.example.recipesapi.security.service.UserService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
