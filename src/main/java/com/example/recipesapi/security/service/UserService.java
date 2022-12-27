@@ -6,6 +6,7 @@ import com.example.recipesapi.security.model.CustomUserDetails;
 import com.example.recipesapi.security.model.entity.User;
 import com.example.recipesapi.security.model.request.AuthenticationRequest;
 import com.example.recipesapi.security.repository.UserRepository;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;

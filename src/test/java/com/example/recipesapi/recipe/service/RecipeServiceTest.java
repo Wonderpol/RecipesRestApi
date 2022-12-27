@@ -54,6 +54,7 @@ class RecipeServiceTest {
                 List.of("Tomaten", "Peper", "sól"),
                 List.of("Tomaten", "Peper", "sól"),
                 LocalDateTime.now(), null);
+
         given(authentication.getPrincipal()).willReturn(customUserDetails);
         //when
         underTestRecipeService.addRecipe(recipe, authentication);
