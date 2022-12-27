@@ -1,4 +1,4 @@
-package com.example.recipesapi.security;
+package com.example.recipesapi.security.service;
 
 import com.example.recipesapi.security.exception.UserAlreadyExistsException;
 import com.example.recipesapi.security.exception.UserNotFoundException;

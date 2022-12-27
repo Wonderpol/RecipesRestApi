@@ -19,6 +19,8 @@ import java.util.Objects;
 @RequiredArgsConstructor
 @NoArgsConstructor
 @DynamicUpdate
+@AllArgsConstructor
+@Builder
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -29,7 +31,7 @@ public class User {
     private String password;
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     @JsonManagedReference
-    private List<Recipe> recipes = new ArrayList<>();
+    private List<Recipe> recipes;
 
     @Override
     public boolean equals(final Object o) {
