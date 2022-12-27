@@ -1,7 +1,7 @@
 package com.example.recipesapi.security;
 
 import com.example.recipesapi.security.exception.UserAlreadyExistsException;
-import com.example.recipesapi.security.model.CustomUserDetails;
+import com.example.recipesapi.security.exception.UserNotFoundException;
 import com.example.recipesapi.security.model.entity.User;
 import com.example.recipesapi.security.model.request.AuthenticationRequest;
 import com.example.recipesapi.security.repository.UserRepository;
@@ -14,6 +14,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import javax.swing.text.html.Option;
 import java.util.Optional;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
@@ -22,7 +23,6 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.verify;
-import static org.springframework.test.util.AssertionErrors.assertEquals;
 
 @ExtendWith(MockitoExtension.class)
 public class UserServiceTest {
@@ -76,6 +76,38 @@ public class UserServiceTest {
         assertThatThrownBy(() -> userServiceUnderTest.registerUser(authenticationRequest))
                 .isInstanceOf(UserAlreadyExistsException.class)
                 .hasMessageContaining("User with email: " + authenticationRequest.getEmail() + " already exists");
+    }
+
+    @Test
+    void getUserById_shouldReturnUser() {
+        //given
+        Long userId = 1L;
+        User user = new User("test@test.com", "password");
+
+        given(userRepository.findById(any())).willReturn(Optional.of(user));
+        //when
+        userServiceUnderTest.getUserById(userId);
+        //then
+
+        final ArgumentCaptor<Long> userIdLongArgumentCaptor = ArgumentCaptor.forClass(Long.class);
+        verify(userRepository).findById(userIdLongArgumentCaptor.capture());
+        final Long capturedValue = userIdLongArgumentCaptor.getValue();
+        assertThat(capturedValue).isEqualTo(userId);
+    }
+
+    @Test
+    void getUserById_shouldThrow_UserNotFoundException() {
+        //given
+        Long userId = 1L;
+        User user = new User("test@test.com", "password");
+
+        given(userRepository.findById(any())).willReturn(Optional.empty());
+        //when
+        //then
+        assertThatThrownBy(() -> userServiceUnderTest.getUserById(userId))
+                .isInstanceOf(UserNotFoundException.class)
+                .hasMessageContaining("User with id: " + userId + " not found");
+
     }
 
 }
