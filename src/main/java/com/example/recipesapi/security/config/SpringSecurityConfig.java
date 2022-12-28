@@ -27,6 +27,8 @@ public class SpringSecurityConfig {
         http
                 .authorizeRequests()
                 .antMatchers("/api/auth/register").permitAll()
+                .antMatchers("/swagger-ui/**").permitAll()
+                .antMatchers("/v3/api-docs/**").permitAll()
                 .antMatchers("/h2-console/**").anonymous()
                 .and()
                 .authorizeRequests().anyRequest().authenticated()

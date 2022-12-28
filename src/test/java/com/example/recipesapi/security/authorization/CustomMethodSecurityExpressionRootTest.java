@@ -3,7 +3,6 @@ package com.example.recipesapi.security.authorization;
 import com.example.recipesapi.recipe.model.entity.Recipe;
 import com.example.recipesapi.security.model.CustomUserDetails;
 import com.example.recipesapi.security.model.entity.User;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
