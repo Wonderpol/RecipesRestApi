@@ -25,16 +25,18 @@ public class SpringSecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
+                .csrf().disable().headers().frameOptions().disable()
+                .and()
+                .httpBasic()
+                .and()
                 .authorizeRequests()
                 .antMatchers("/api/v1/auth/register").permitAll()
                 .antMatchers("/swagger-ui/**", "/v3/api-docs/**", "/swagger-doc/**").permitAll()
                 .antMatchers("/h2-console/**").permitAll()
                 .and()
-                .authorizeRequests().anyRequest().authenticated()
-                .and()
-                .httpBasic()
-                .and()
-                .csrf().disable().headers().frameOptions().disable();
+                .authorizeRequests()
+                .anyRequest()
+                .authenticated();
 
         return http.build();
     }
