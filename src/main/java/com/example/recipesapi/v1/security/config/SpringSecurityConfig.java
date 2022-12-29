@@ -26,7 +26,7 @@ public class SpringSecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                .antMatchers("/api/auth/register").permitAll()
+                .antMatchers("/api/v1/auth/register").permitAll()
                 .antMatchers("/swagger-ui/**", "/v3/api-docs/**", "/swagger-doc/**").permitAll()
                 .antMatchers("/h2-console/**").permitAll()
                 .and()
