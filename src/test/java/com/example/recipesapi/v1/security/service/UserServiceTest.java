@@ -2,6 +2,7 @@ package com.example.recipesapi.v1.security.service;
 
 import com.example.recipesapi.v1.security.exception.UserAlreadyExistsException;
 import com.example.recipesapi.v1.security.exception.UserNotFoundException;
+import com.example.recipesapi.v1.security.model.dto.UserMapper;
 import com.example.recipesapi.v1.security.model.entity.User;
 import com.example.recipesapi.v1.security.model.request.AuthenticationRequest;
 import com.example.recipesapi.v1.security.repository.UserRepository;
@@ -30,6 +31,8 @@ public class UserServiceTest {
     private UserRepository userRepository;
     @Mock
     private PasswordEncoder passwordEncoder;
+    @Mock
+    private UserMapper userMapper;
     @InjectMocks
     private UserService userServiceUnderTest;
 

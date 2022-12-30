@@ -1,5 +1,6 @@
 package com.example.recipesapi.v1.security.controller;
 
+import com.example.recipesapi.v1.security.model.dto.UserDto;
 import com.example.recipesapi.v1.security.model.entity.User;
 import com.example.recipesapi.v1.security.model.request.AuthenticationRequest;
 import com.example.recipesapi.v1.security.service.UserService;
@@ -17,7 +18,7 @@ public class AuthenticationController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<User> register(@RequestBody AuthenticationRequest authenticationRequest) {
+    public ResponseEntity<UserDto> register(@RequestBody AuthenticationRequest authenticationRequest) {
         return new ResponseEntity<>(userService.registerUser(authenticationRequest), HttpStatus.OK);
     }
 
