@@ -130,6 +130,7 @@ Example of usage:
 - `GET` : Get list of authenticated user's recipes
 
 ## TODO
+- [ ] Add about project section
 - [ ] Add authentication documentation
 - [ ] Add integration test
 - [ ] Deploy on aws
