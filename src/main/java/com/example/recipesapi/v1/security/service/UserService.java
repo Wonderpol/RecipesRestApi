@@ -44,6 +44,7 @@ public class UserService implements UserDetailsService {
                 });
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         final User savedUser = userRepository.saveAndFlush(new User(user.getEmail(), user.getPassword()));
+
         return userMapper.convertToDto(savedUser);
     }
 

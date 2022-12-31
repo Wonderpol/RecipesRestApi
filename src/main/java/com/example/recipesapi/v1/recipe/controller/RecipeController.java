@@ -53,7 +53,7 @@ public class RecipeController {
         return new ResponseEntity<>(recipe, HttpStatus.OK);
     }
 
-    @PostMapping("/new")
+    @PostMapping("")
     private void newRecipe(@RequestBody Recipe recipe, Authentication authentication) {
         recipeService.addRecipe(recipe, authentication);
     }
