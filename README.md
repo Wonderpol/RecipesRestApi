@@ -4,8 +4,9 @@
 * [Used technologies](#technologies)
 * [Getting started](#getting-started)
 * [Api endpoints](#api-endpoints)
+* [TODO](#todo)
 
-### Technologies
+## Technologies
 - Spring boot 
 - Spring security
 - JUnit and Mockito
@@ -13,7 +14,7 @@
 - Docker
 - OpenAPI docs and SwaggerUI
 
-### Getting started
+## Getting started
 1. Open terminal
 2. Clone the repository `git clone git@github.com:Wonderpol/RecipesRestApi.git`
 3. Go to the project directory
@@ -99,12 +100,12 @@ Name property can be chosen by you, and it doesn't depend on any configuration, 
 Set Host name/address, Username, Password properties and click `Save`.
 All of this are defined in `docker-compose.yml` file.
 
-### Api endpoints
+## Api endpoints
 
-#### Swagger documentation 
+### Swagger documentation 
 Swagger ui documentation is available at: <http://localhost:8080/swagger-doc>
 
-#### Rest endpoints
+### Rest endpoints
 
 **/api/v1/recipe**
 - `GET` : Get all recipes
@@ -128,7 +129,7 @@ Example of usage:
 **/api/v1/recipe/my**
 - `GET` : Get list of authenticated user's recipes
 
-### TODO
+## TODO
 - [ ] Add authentication documentation
 - [ ] Add integration test
 - [ ] Deploy on aws
